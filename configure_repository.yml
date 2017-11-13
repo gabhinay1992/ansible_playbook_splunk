@@ -1,5 +1,5 @@
 ---
-- hosts: repository
+- hosts: webservers
   user: root
   tasks:
   - name: Create repository root directory
@@ -35,12 +35,6 @@
   - name: Set repository directory mode
     file: path={{ splunk_repository.repository_root }} 
           mode=750
-
-  - name: Find app roles
-    command: "ls roles/apps"
-    register: app_roles
- 
-  - name: Create deploy_apps.yml
-    template: src=roles/common/templates/deploy_apps.yml.j2
-              dest=./deploy_apps.yml
-              mode=0640
+  
+ - include: nexus.yml
+  

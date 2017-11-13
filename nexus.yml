@@ -1,0 +1,9 @@
+- hosts: webservers
+  tasks:
+   - name: compress the folder splunk_repository
+     shell: tar -zcvf /tmp/splunk_repository.tar.gz splunk_repository
+     args:
+         chdir: /var/lib
+
+   - name: push artifacts
+     shell: "curl -k -u gabhinay1992:Applepassword5 --uploadfile /tmp/splunk_repository.tar.gz https://github.com/gabhinay1992/mynewrepo/splunk_repository -v --fail"
